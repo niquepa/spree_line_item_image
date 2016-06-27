@@ -7,6 +7,7 @@ module Spree
     end
 
     def edit
+      @file = Spree::File.find(params[:id])
     end
 
     def update
