@@ -1,5 +1,5 @@
 module Spree
   LineItem.class_eval do
-    has_many :files, :dependent => :destroy
+    has_one :file, :dependent => :destroy
   end
 end

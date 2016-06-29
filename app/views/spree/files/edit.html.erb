@@ -1,1 +1,6 @@
-<%= image_tag @file.image.url %>
+<%= form_for @file, url: edit_line_item_file_path, method: :put, html: { multipart: true } do |form| %>
+  <%= form.file_field :image %>
+  <%= form.submit "UPLOAD FILE" %>
+<% end %>
+<h1>Actual</h1>
+<%= image_tag @file.image.url(:medium) %>

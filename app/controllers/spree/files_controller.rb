@@ -3,7 +3,11 @@ module Spree
     before_action :load_line_item
     
     def new
-      @file = Spree::File.new(:line_item => @line_item)
+      if @line_item.file
+        redirect_to edit_line_item_file_path(:line_item_id => @line_item, :id => @line_item.file)
+      else
+        @file = Spree::File.new(:line_item => @line_item)
+      end
     end
 
     def edit
@@ -11,20 +15,22 @@ module Spree
     end
 
     def update
+      @line_item.file = nil
+      @line_item.save
+      @file = Spree::File.create( file_params )
+      redirect_to cart_path
     end
 
     def destroy
     end
 
     def create
-      puts "PARAMS"
-      puts "PARAMS"
-      puts "*#{file_params}*"
-      puts "PARAMS"
-      puts "PARAMS"
+      #puts "PARAMS"
+      #puts "PARAMS"
+      #puts "*#{file_params}*"
+      #puts "PARAMS"
+      #puts "PARAMS"
       @file = Spree::File.create( file_params )
-      #@file.line_item = @line_item
-      #@file.save
       redirect_to cart_path
     end
 
@@ -43,12 +49,5 @@ module Spree
         file_params.store(:line_item_id,params[:line_item_id])
         file_params
       end
-      #def order_params
-      #  if params[:file]
-      #    params[:file].permit()
-      #  else
-      #    {}
-      #  end
-      #end    
   end
 end
