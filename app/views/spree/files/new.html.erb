@@ -1,4 +1,5 @@
 <%= form_for @file, url: create_line_item_file_path, html: { multipart: true } do |form| %>
+  <%= render 'errors', object: @file %>
   <%= form.file_field :image %>
   <%= form.submit "UPLOAD FILE" %>
 <% end %>

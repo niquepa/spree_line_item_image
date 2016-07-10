@@ -1,5 +1,9 @@
 <% if line_item.file %>
-  <%= image_tag line_item.file.image.url(:thumb) %>
+  <% if %w(application/pdf).include?(line_item.file.image_content_type) %>
+    <%= link_to small_image(variant.product), variant.product %>
+  <% else %>
+    <%= image_tag line_item.file.image.url(:thumb) %>
+  <% end %>
 <% elsif variant.images.length == 0 %>
   <%= link_to small_image(variant.product), variant.product %>
 <% else %>

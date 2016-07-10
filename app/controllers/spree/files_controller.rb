@@ -30,8 +30,18 @@ module Spree
       #puts "*#{file_params}*"
       #puts "PARAMS"
       #puts "PARAMS"
-      @file = Spree::File.create( file_params )
-      redirect_to cart_path
+      #@photo = Photo.new(photo_params)
+      #if @photo.save      
+      #@file = Spree::File.create( file_params )
+      @file = Spree::File.new( file_params )
+      if @file.save
+        flash[:success] = "The file was uploaded!"
+        redirect_to cart_path
+      else
+        puts "FILE *******#{@file.inspect}********"
+        render 'new'
+      end
+      
     end
 
     private
