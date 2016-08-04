@@ -1,0 +1,5 @@
+<% if @file.new_record? %>
+  alert("Failed to upload file: <%= j @file.errors.full_messages.join(',').html_safe%>");
+<% else %>
+  $('#filelist').append('<%= image_tag @file.image.url(:medium) %>');
+<% end %>

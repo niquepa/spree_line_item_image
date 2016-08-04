@@ -1,5 +1,90 @@
-<%= form_for @file, url: create_line_item_file_path, html: { multipart: true } do |form| %>
-  <%= render 'errors', object: @file %>
-  <%= form.file_field :image %>
-  <%= form.submit "UPLOAD FILE" %>
-<% end %>
+<div class="container">
+  <h2>Upload file</h2>
+  <%= form_for @file, url: create_line_item_file_path, html: { multipart: true, :id => "fileupload" } do |f| %>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+      <div class="span7">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+          <span>Add files...</span>
+          <%= f.file_field :image %>
+        </span>
+      </div>
+      <div class="span5">
+        <!-- The global progress bar -->
+        <div class="progress progress-success progress-striped active fade">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <div id="filelist"></div>
+  <% end %>
+
+</div>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  // Initialize the jQuery File Upload widget:
+  /*
+  jQuery(function() {
+    return $('#fileupload').fileupload({
+      dataType: "script"
+    });
+  });
+  */
+  /*
+  jQuery(function() {
+    return $('#fileupload').fileupload({
+      dataType: "script",
+      add: function(e, data) {
+        data.context = $(tmpl("template-upload", data.files[0]));
+        $('#fileupload').append(data.context);
+        return data.submit();
+      },
+      progress: function(e, data) {
+        var progress;
+        if (data.context) {
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return data.context.find('.bar').css('width', progress + '%');
+        }
+      }
+    });
+  });
+  */
+  jQuery(function() {
+    return $('#fileupload').fileupload({
+      dataType: "script",
+      add: function(e, data) {
+        var file, types;
+        types = /(\.|\/)(gif|jpe?g|png|pdf|tiff)$/i;
+        file = data.files[0];
+        if (types.test(file.type) || types.test(file.name)) {
+          alert(file);
+          console.log(file);
+          //data.context = $(tmpl("template-upload", file));
+          //$('#fileupload').append(data.context);
+          return data.submit();
+        } else {
+          return alert(file.name + " is not a gif, jpeg, png, tiff or pdf file");
+        }
+      },
+      progress: function(e, data) {
+        var progress;
+        if (data.context) {
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return data.context.find('.bar').css('width', progress + '%');
+        }
+      }
+    });
+  });  
+</script>
