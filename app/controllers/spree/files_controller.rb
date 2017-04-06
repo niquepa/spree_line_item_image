@@ -34,16 +34,16 @@ module Spree
       #if @photo.save      
       #@file = Spree::File.create( file_params )
       
-      #@file = Spree::File.new( file_params )
-      #if @file.save
-      #  flash[:success] = "The file was uploaded!"
-      #  redirect_to cart_path
-      #else
-      #  puts "FILE *******#{@file.inspect}********"
-      #  render 'new'
-      #end   
-      
-      @file = Spree::File.create(file_params)
+      @file = Spree::File.new( file_params )
+      if @file.save
+        flash[:success] = "The file was uploaded!"
+        redirect_to cart_path
+      else
+        puts "FILE *******#{@file.inspect}********"
+        render 'new'
+      end
+
+      #@file = Spree::File.create(file_params)
     end
 
     private
