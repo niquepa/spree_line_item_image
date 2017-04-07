@@ -1,5 +1,25 @@
 <%= form_for @file, url: create_line_item_file_path, html: { multipart: true } do |form| %>
-    <%= render 'errors', object: @file %>
-    <%= form.file_field :image %>
-    <%= form.submit "UPLOAD FILE" %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= render 'errors', object: @file %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="input-group image-preview">
+          <input placeholder="" type="text" class="form-control image-preview-filename" disabled="disabled">
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default image-preview-clear" style="display:none;"> <span class="glyphicon glyphicon-remove"></span> Clear </button>
+          <div class="btn btn-default image-preview-input">
+            <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
+            <input type="file" name="file[image]" id="file_image" accept="image/jpeg, image/jpg, image/tiff, image/png, application/pdf"/>
+          </div>
+            <%= form.submit "Upload", :class => 'btn btn-labeled btn-primary' %>
+
+        </span>
+        </div>
+      </div>
+    </div>
 <% end %>
