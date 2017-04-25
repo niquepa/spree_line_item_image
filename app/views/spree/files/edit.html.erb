@@ -29,3 +29,10 @@
     <%= image_tag @file.image.url(:medium) %>
   </div>
 </div>
+
+<script>
+  $(".image-preview-input input:file").change(function (){
+    var file = this.files[0];
+    $(".image-preview-filename").val(file.name);
+  });
+</script>

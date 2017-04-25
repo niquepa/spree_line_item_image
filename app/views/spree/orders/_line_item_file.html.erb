@@ -9,3 +9,9 @@
 <% else %>
   <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
 <% end %>
+
+<% if line_item.file %>
+  <h5><%= link_to "Edit file", edit_line_item_file_path(line_item, line_item.file) %></h5>
+<% else %>
+  <h5><%= link_to "Update file", new_line_item_file_path(line_item) %></h5>
+<% end %>

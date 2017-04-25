@@ -1,0 +1,11 @@
+<% if item.line_item.file %>
+    <% if %w(application/pdf).include?(item.line_item.file.image_content_type) %>
+        <%= small_image(item.variant.product) %>
+    <% else %>
+        <%= image_tag item.line_item.file.image.url(:thumb) %>
+    <% end %>
+<% elsif item.variant.images.length == 0 %>
+    <%= small_image(item.variant.product) %>
+<% else %>
+    <%= image_tag(item.variant.images.first.attachment.url(:small)) %>
+<% end %>
